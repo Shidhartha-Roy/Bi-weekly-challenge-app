@@ -28,6 +28,7 @@ const CreateChallenge = () => {
         
     }
 
+    //!Changes are bound to happen
     const handleSubmit = () =>{
         console.log(challengeDetails.projectname,challengeDetails.pdesc,challengeDetails.sdate,challengeDetails.edate)
     }
@@ -97,7 +98,7 @@ const CreateChallenge = () => {
             <button className="rounded text-white font-semibold bg-green-700 hover:bg-green-500 hover:text-black py-2 px-6" onClick={handleSubmit}>
                 Create
             </button>
-            <button className="rounded text-white font-semibold bg-red-700 hover:bg-red-500 hover:text-black py-2 px-6" onClick={() => navigate("/")}>
+            <button className="rounded text-white font-semibold bg-red-700 hover:bg-red-500 hover:text-black py-2 px-6" onClick={() => navigate("/home")}>
                 Back
             </button>
         </div>

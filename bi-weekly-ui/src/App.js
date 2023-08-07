@@ -4,6 +4,10 @@ import LoginForm from './components/LoginForm';
 import Nav from './components/Nav';
 import CreateChallenge from './components/CreateChallenge';
 import Home from './components/Home';
+import ProjectEvents from './components/ProjectEvents';
+import CreateEvent from './components/CreateEvent';
+import UpdateEvent from './components/UpdateEvents';
+import Landing from './components/Landing';
 
 function App() {
   return (
@@ -11,9 +15,13 @@ function App() {
     <BrowserRouter>
     <Nav />
     <Routes>
-      <Route index element={<Home />} />
+      <Route index element={<Landing />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/create" element={<CreateChallenge />} />
       <Route path="/login" element={<LoginForm />} />
+      <Route path="/events" element={<ProjectEvents />} />
+      <Route path="/createEvents" element={<CreateEvent />} />
+      <Route path="/update" element={<UpdateEvent />} />
     </Routes>
     
     

@@ -33,6 +33,9 @@ const Home = () => {
     const navigate = useNavigate();
   return (
     <div className="container mx-auto my-8">
+        <div className="h-12">
+            List of Challenges
+      </div>
         <div className="flex shadow border-b">
             <table className="min-w-full">
                 <thead className="bg-gray-100">
@@ -43,44 +46,48 @@ const Home = () => {
                         <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Start Date</th>
                         <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">End Date</th>
                         <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Status</th>
+                        <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Actions</th>
                     </tr>
                 </thead>
                 {loading && (
                     <tbody className="bg-white">
                         <tr 
-                        onClick={() => navigate("/create")}
+                        onClick={() => navigate("/events")}
                         className="cursor-pointer">
-                            <td className="text-left px-6 py-4 whitespace-nowrap">
+                            <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm text-gray-500">
                                     1
                                 </div>
                             </td>
-                            <td className="text-left px-6 py-4 whitespace-nowrap">
+                            <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm text-gray-500">
                                     Something
                                 </div>
                             </td>
-                            <td className="text-left px-6 py-4 whitespace-nowrap">
+                            <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm text-gray-500">
-                                    Hallo Hallo
+                                    Hallo Hallo 
                                 </div>
                             </td>
-                            <td className="text-left px-6 py-4 whitespace-nowrap">
+                            <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm text-gray-500">
                                     {date.sdate}
                                 </div>
                             </td>
-                            <td className="text-left px-6 py-4 whitespace-nowrap">
+                            <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm text-gray-500">
                                     {date.edate}
                                 </div>
                             </td>
-                            <td className="text-left px-6 py-4 whitespace-nowrap">
+                            <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm ">
                                     <span style={{color: status === 'Completed' ? 'green' : 'orange'}}>
                                         {status}
                                     </span>
                                 </div>
+                            </td>
+                            <td className="text-center font-semibold">
+                                <button className="bg-red-700 hover:bg-red-500 text-white hover:text-black px-4 py-2 rounded">Delete</button>
                             </td>
                         </tr>
                     </tbody>
