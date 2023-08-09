@@ -10,3 +10,4 @@ spring:
       hibernate:
         format_sql: false
     show-sql: true
+

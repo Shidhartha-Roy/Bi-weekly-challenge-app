@@ -1,4 +1,5 @@
 import React,{ useState } from 'react'
+import { NavLink } from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -12,7 +13,8 @@ const LoginForm = () => {
     const value = e.target.value;
     setLoginDetails({...loginDetails, [e.target.name]: value});
   }
-
+ 
+  //!Will do something else
   const handleSubmit = () =>{
     console.log(loginDetails.username, loginDetails.password);
   }
@@ -48,6 +50,7 @@ const LoginForm = () => {
                     Login
                 </button>
             </div>
+            <div>Not Registered? <NavLink to="/register" className="text-blue-900">Sign In</NavLink></div>
         </div>
     </div>
   )

@@ -8,6 +8,7 @@ import ProjectEvents from './components/ProjectEvents';
 import CreateEvent from './components/CreateEvent';
 import UpdateEvent from './components/UpdateEvents';
 import Landing from './components/Landing';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       <Route path="/events" element={<ProjectEvents />} />
       <Route path="/createEvents" element={<CreateEvent />} />
       <Route path="/update" element={<UpdateEvent />} />
+      <Route path="/register" element={<Register />} />
+      
     </Routes>
     
     
