@@ -1,7 +1,13 @@
 import React,{ useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import UserService from '../services/UserService';
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
+
+  const navigate = useNavigate();
+
+  const [errorMessage, setErrorMessage] = useState("")
 
   const [loginDetails, setLoginDetails] = useState({
     username: "",
@@ -13,10 +19,22 @@ const LoginForm = () => {
     const value = e.target.value;
     setLoginDetails({...loginDetails, [e.target.name]: value});
   }
- 
-  //!Will do something else
-  const handleSubmit = () =>{
-    console.log(loginDetails.username, loginDetails.password);
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    UserService.loginUser(loginDetails)
+    .then((response) => {
+      const token = response.headers.get('Authorization');
+      console.log(token)
+      Cookies.set('authToken', token, {expires: 1});
+      navigate("/home");
+      window.location.reload("false");
+    })
+    .catch((error) => {
+      if(error.response.data === "Invalid Credentials"){
+        setErrorMessage("Check Your Credentials");
+      }
+    })
   }
 
 
@@ -27,6 +45,7 @@ const LoginForm = () => {
             <div className="font-thin text-2xl tracking-wider">
                 <h1>Login</h1>
             </div>
+            <div className="mt-2 text-red-600 font-semibold uppercase">{errorMessage}</div>
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">Username</label>
                 <input

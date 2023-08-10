@@ -32,14 +32,14 @@ public class UserServiceImpl implements UserService{
             throw new UsernameNotFoundException("User not found");
         }
         //BCrypt ed password function
-//        if(!passwordEncoder.matches(password, user.getPassword())){
-//            throw new IllegalArgumentException("Invalid Password");
-//        }
-
-        //Testing normal password function
-        if(!password.equals(user.getPassword())){
+        if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("Invalid Password");
         }
+
+        //Testing normal password function
+//        if(!password.equals(user.getPassword())){
+//            throw new IllegalArgumentException("Invalid Password");
+//        }
         return user;
 
     }

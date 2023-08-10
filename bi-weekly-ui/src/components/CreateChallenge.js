@@ -1,5 +1,6 @@
 import React,{ useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const CreateChallenge = () => {
 
@@ -35,7 +36,13 @@ const CreateChallenge = () => {
 
 
     useEffect(() => {
+        //*Direct Path Access
+        const token = Cookies.get('authToken');
+        if(!token){
+            navigate("/login");
+        }
 
+        //*End Date Function Call
         calculateEndDate(new Date(challengeDetails.sdate));
 
     }, [challengeDetails.sdate]) //This runs the effect whenever sdate changes

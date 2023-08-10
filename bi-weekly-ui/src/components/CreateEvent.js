@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 const CreateEvent = () => {
@@ -24,6 +25,15 @@ const CreateEvent = () => {
     const handleSubmit = () =>{
         console.log(eventDetails.eventname,eventDetails.edesc,eventDetails.date)
     }
+
+    useEffect(() => {
+      //*Direct Path Access
+      const token = Cookies.get('authToken');
+      if(!token){
+          navigate("/login");
+      }
+    }, [])
+    
 
     
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 const UpdateEvent = () => {
@@ -23,6 +24,13 @@ const UpdateEvent = () => {
         console.log(eventDetails.eventname,eventDetails.edesc,eventDetails.date)
     }
 
+    useEffect(() => {
+      //*Direct Path Access
+      const token = Cookies.get('authToken');
+      if(!token){
+          navigate("/login");
+      }
+    }, [])
     
 
 

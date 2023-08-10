@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import bcrypt from 'bcryptjs';
+import UserService from '../services/UserService';
 
 const Register = () => {
+
+  const navigate = useNavigate();
 
   const [validate, setValidate] = useState({
     confirmPassword: "",
   })
+
+  const [errorMessage, setErrorMessage] = useState("")
 
   const [registerDetails, setRegisterDetails] = useState({
     firstname: "",
@@ -21,12 +27,44 @@ const Register = () => {
     setValidate({...validate, [e.target.name]: value});
 
   }
+
+  const handleRegister = (e) =>{
+    
+    const hashedPassword = bcrypt.hashSync(registerDetails.password, 11);
+    const userData = {
+      firstname: registerDetails.firstname,
+      lastname: registerDetails.lastname,
+      username: registerDetails.username,
+      password: hashedPassword,
+    }
+    e.preventDefault();
+    UserService.saveUser(userData)
+    .then(() => {
+      console.log("User Registered");
+      navigate("/login")
+    })
+    .catch((error) => {
+      if(error.response.data === "Username Already Exists"){
+        setErrorMessage("Username already exists")
+      }
+      else{
+        setErrorMessage("Some Error has Occured")
+      }
+    })
+
+
+
+
+  }
   return (
     <div className="flex max-w-2xl mx-auto mt-20 shadow border border-gray-900">
+      <form onSubmit={handleRegister}>
         <div className="px-8 py-8">
+          
             <div className="font-thin text-2xl tracking-wider">
                 <h1>Register</h1>
             </div>
+            <div className="mt-2 text-red-600 font-semibold uppercase">{errorMessage}</div>
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">First Name</label>
                 <input
@@ -82,6 +120,7 @@ const Register = () => {
             </div>
             <div>Already Registered? <NavLink to="/login" className="text-blue-900">Log In</NavLink></div>
         </div>
+        </form>
     </div>
   )
 }

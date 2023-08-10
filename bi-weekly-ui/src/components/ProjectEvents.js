@@ -1,11 +1,21 @@
-import React,{ useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 const ProjectEvents = () => {
 
   const navigate = useNavigate();
 
     const [lodaing, setLodaing] = useState(true)
+
+  useEffect(() => {
+    //*Direct Path Access
+    const token = Cookies.get('authToken');
+    if(!token){
+        navigate("/login");
+    }
+  }, [])
+  
 
   return (
     <div className="container mx-auto my-8">

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,6 +16,13 @@ const Home = () => {
 
     //!Some changes here to after integration
     useEffect(() => {
+        //*Direct path access
+        const token = Cookies.get('authToken');
+        if(!token){
+            navigate("/login");
+        }
+
+        //*Date Side Effects
         const currentDate = new Date().toISOString().split('T')[0];
         if(date.sdate < currentDate && date.edate > currentDate){
             setStatus("Ongoing")
