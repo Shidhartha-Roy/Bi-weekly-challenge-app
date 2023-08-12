@@ -24,8 +24,11 @@ public class UserController {
         try{
             UserEntity user = userService.loginUser(userLoginModel.getUsername(), userLoginModel.getPassword());
             String token = userService.generateJwtToken(user);
-
-            return ResponseEntity.ok().header("Authorization", "Bearer "+token).build();
+            String id = user.getFirstname();
+            return ResponseEntity.ok()
+                    .header("Authorization", "Bearer "+token)
+                    .header("UserId", id)
+                    .build();
         }
         catch (UsernameNotFoundException | IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");

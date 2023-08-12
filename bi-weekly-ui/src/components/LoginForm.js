@@ -25,9 +25,10 @@ const LoginForm = () => {
     UserService.loginUser(loginDetails)
     .then((response) => {
       const token = response.headers.get('Authorization');
+      const id = response.headers.get('UserId');
       console.log(token)
       Cookies.set('authToken', token, {expires: 1});
-      navigate("/home");
+      navigate(`/home/${id}`);
       window.location.reload("false");
     })
     .catch((error) => {

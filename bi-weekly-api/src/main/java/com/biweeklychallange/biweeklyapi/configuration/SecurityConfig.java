@@ -25,7 +25,8 @@ public class SecurityConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedMethods("*").allowedOrigins("http://localhost:3000")
-                        .exposedHeaders("Authorization");
+                        .exposedHeaders("Authorization")
+                        .exposedHeaders("UserId");
 
 
             }

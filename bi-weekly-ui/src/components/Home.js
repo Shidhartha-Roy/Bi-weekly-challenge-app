@@ -1,12 +1,12 @@
 import Cookies from 'js-cookie'
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 const Home = () => {
 
     const [status, setStatus] = useState("Fetching status....")
-
+    const { id } = useParams();
 
     //!This is bound to change when backend integration is done
     const [date, setDate] = useState({
@@ -30,6 +30,9 @@ const Home = () => {
         else if(currentDate > date.edate){
             setStatus("Completed")
         }
+        else if(currentDate === date.edate){
+            setStatus("Last Ride")
+        }
         else if(currentDate < date.sdate){
             setStatus("Upcoming")
         }
@@ -42,7 +45,7 @@ const Home = () => {
   return (
     <div className="container mx-auto my-8">
         <div className="h-12">
-            List of Challenges
+            List of Challenges of {id}
       </div>
         <div className="flex shadow border-b">
             <table className="min-w-full">
@@ -89,7 +92,7 @@ const Home = () => {
                             </td>
                             <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm ">
-                                    <span style={{color: status === 'Completed' ? 'green' : 'orange'}}>
+                                    <span style={{color: status === 'Completed' ? 'green' : 'orange' ,  border: "1px solid" }} className="rounded p-1">
                                         {status}
                                     </span>
                                 </div>

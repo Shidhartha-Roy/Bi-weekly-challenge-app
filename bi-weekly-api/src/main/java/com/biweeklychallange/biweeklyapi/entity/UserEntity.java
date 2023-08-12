@@ -1,9 +1,9 @@
 package com.biweeklychallange.biweeklyapi.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -15,4 +15,15 @@ public class UserEntity {
     private String username;
     @Column(length = 60)
     private String password;
+
+
+    private int projectCount;
+
+    @OneToMany(mappedBy = "user")
+    private List<ChallengeEntity> challengeEntities;
+
+    @PrePersist
+    public  void prePersist(){
+        this.projectCount = 0;
+    }
 }

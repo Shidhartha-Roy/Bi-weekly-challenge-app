@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class ChallengeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     private String pname;
 
@@ -22,4 +22,8 @@ public class ChallengeEntity {
     private LocalDate startDate;
     @Column(name = "edate")
     private LocalDate endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private UserEntity user;
 }

@@ -36,10 +36,6 @@ public class UserServiceImpl implements UserService{
             throw new IllegalArgumentException("Invalid Password");
         }
 
-        //Testing normal password function
-//        if(!password.equals(user.getPassword())){
-//            throw new IllegalArgumentException("Invalid Password");
-//        }
         return user;
 
     }
