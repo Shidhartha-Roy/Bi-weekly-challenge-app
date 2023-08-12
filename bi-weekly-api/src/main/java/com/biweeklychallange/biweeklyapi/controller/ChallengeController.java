@@ -14,6 +14,8 @@ public class ChallengeController {
     @Autowired
     private ChallengeService challengeService;
 
+
+
     @PostMapping("/create")
     public ChallengeModel createChallange(@RequestBody ChallengeModel challengeModel){
         return challengeService.createChallenge(challengeModel);

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 const Home = () => {
 
     const [status, setStatus] = useState("Fetching status....")
-    const { id } = useParams();
+    
 
     //!This is bound to change when backend integration is done
     const [date, setDate] = useState({
@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <div className="container mx-auto my-8">
         <div className="h-12">
-            List of Challenges of {id}
+            List of Challenges
       </div>
         <div className="flex shadow border-b">
             <table className="min-w-full">

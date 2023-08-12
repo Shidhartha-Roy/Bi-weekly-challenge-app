@@ -28,7 +28,8 @@ const LoginForm = () => {
       const id = response.headers.get('UserId');
       console.log(token)
       Cookies.set('authToken', token, {expires: 1});
-      navigate(`/home/${id}`);
+      Cookies.set('uname', id, {expires: 1});
+      navigate("/home");
       window.location.reload("false");
     })
     .catch((error) => {

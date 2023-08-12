@@ -18,12 +18,10 @@ public class ChallengeEntity {
 
     private String pdesc;
 
-    @Column(name = "sdate")
+
     private LocalDate startDate;
-    @Column(name = "edate")
+
     private LocalDate endDate;
 
-    @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username")
-    private UserEntity user;
+    private String username;
 }

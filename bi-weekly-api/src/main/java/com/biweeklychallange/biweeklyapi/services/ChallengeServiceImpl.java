@@ -10,8 +10,14 @@ import org.springframework.stereotype.Service;
 public class ChallengeServiceImpl implements ChallengeService{
 
     private ChallengeRepository challengeRepository;
+
+    public ChallengeServiceImpl(ChallengeRepository challengeRepository) {
+        this.challengeRepository = challengeRepository;
+    }
+
     @Override
     public ChallengeModel createChallenge(ChallengeModel challengeModel) {
+
         ChallengeEntity challengeEntity = new ChallengeEntity();
 
         BeanUtils.copyProperties(challengeModel, challengeEntity);

@@ -21,5 +21,7 @@ public class ChallengeModel {
 
     private LocalDate endDate;
 
+    private String username;
+
 
 }

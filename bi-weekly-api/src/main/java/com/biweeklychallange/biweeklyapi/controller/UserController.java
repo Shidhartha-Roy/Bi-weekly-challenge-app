@@ -24,7 +24,7 @@ public class UserController {
         try{
             UserEntity user = userService.loginUser(userLoginModel.getUsername(), userLoginModel.getPassword());
             String token = userService.generateJwtToken(user);
-            String id = user.getFirstname();
+            String id = user.getUsername();
             return ResponseEntity.ok()
                     .header("Authorization", "Bearer "+token)
                     .header("UserId", id)

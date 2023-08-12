@@ -19,8 +19,7 @@ public class UserEntity {
 
     private int projectCount;
 
-    @OneToMany(mappedBy = "user")
-    private List<ChallengeEntity> challengeEntities;
+
 
     @PrePersist
     public  void prePersist(){

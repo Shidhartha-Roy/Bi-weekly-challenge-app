@@ -1,10 +1,16 @@
 import React,{ useState,useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import ChallengeService from '../services/ChallengeService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateChallenge = () => {
 
+    const id = Cookies.get('uname');
+
     const navigate = useNavigate();
+
 
     const currentDate = new Date().toISOString().split('T')[0];
 
@@ -13,14 +19,15 @@ const CreateChallenge = () => {
         const endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 14);
         const formattedEndDate = endDate.toISOString().split('T')[0];
-        setChallengeDetails({...challengeDetails, edate: formattedEndDate});
+        setChallengeDetails({...challengeDetails, endDate: formattedEndDate});
       }
 
     const [challengeDetails, setChallengeDetails] = useState({
-        projectname: "",
-        sdate: currentDate,
+        pname: "",
         pdesc: "",
-        edate: "",
+        startDate: currentDate,
+        endDate: "",
+        username: id,
     })
 
     const handleChange = (e) =>{
@@ -29,9 +36,21 @@ const CreateChallenge = () => {
         
     }
 
-    //!Changes are bound to happen
-    const handleSubmit = () =>{
-        console.log(challengeDetails.projectname,challengeDetails.pdesc,challengeDetails.sdate,challengeDetails.edate)
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        ChallengeService.createChallenge(challengeDetails)
+        .then(() => {
+            toast("Challenge Accepted!");
+
+            setTimeout(() => {
+                navigate("/home")
+            }, 6000);
+            
+
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
 
@@ -43,9 +62,9 @@ const CreateChallenge = () => {
         }
 
         //*End Date Function Call
-        calculateEndDate(new Date(challengeDetails.sdate));
+        calculateEndDate(new Date(challengeDetails.startDate));
 
-    }, [challengeDetails.sdate]) //This runs the effect whenever sdate changes
+    }, [challengeDetails.startDate]) //This runs the effect whenever startDate changes
     
 
 
@@ -61,8 +80,8 @@ const CreateChallenge = () => {
             <label className="block text-gray-600 text-sm font-normal">Project Name</label>
             <input
             type="text"
-            name="projectname"
-            value={challengeDetails.projectname}
+            name="pname"
+            value={challengeDetails.pname}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2"
             />
@@ -72,8 +91,8 @@ const CreateChallenge = () => {
             <label className="block text-gray-600 text-sm font-normal">Starting Date</label>
             <input
             type="date"
-            name="sdate"
-            value={challengeDetails.sdate}
+            name="startDate"
+            value={challengeDetails.startDate}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2"
             />
@@ -94,17 +113,20 @@ const CreateChallenge = () => {
             <label className="block text-gray-600 text-sm font-normal">End Date</label>
             <input
             type="date"
-            name="edate"
+            name="endDate"
             className="h-10 w-96 border border-gray-500 px-2 py-2"
-            value={challengeDetails.edate}
+            value={challengeDetails.endDate}
             onChange={(e) => handleChange(e)}
             readOnly
             />
         </div>
         <div className="items-center justify-start h-14 w-full space-x-4 pt-4">
+            
+            <ToastContainer />
             <button className="rounded text-white font-semibold bg-green-700 hover:bg-green-500 hover:text-black py-2 px-6" onClick={handleSubmit}>
                 Create
             </button>
+            
             <button className="rounded text-white font-semibold bg-red-700 hover:bg-red-500 hover:text-black py-2 px-6" onClick={() => navigate("/home")}>
                 Back
             </button>

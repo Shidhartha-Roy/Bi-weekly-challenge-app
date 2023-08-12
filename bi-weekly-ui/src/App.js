@@ -17,7 +17,7 @@ function App() {
     <Nav />
     <Routes>
       <Route index element={<Landing />} />
-      <Route path="/home/:id" element={<Home />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/create" element={<CreateChallenge />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/events" element={<ProjectEvents />} />
