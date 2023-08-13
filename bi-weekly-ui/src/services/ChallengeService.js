@@ -8,6 +8,10 @@ class ChallengeService{
         return axios.post(CHALLENGE_API_URL+"/create", details)
     }
 
+    getChallenges(item){
+        return axios.get(CHALLENGE_API_URL + "/challenges/"+ item);
+    }
+
 
 }
 export default new ChallengeService
