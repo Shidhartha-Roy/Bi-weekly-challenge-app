@@ -8,4 +8,6 @@ public interface ChallengeService {
     List<ChallengeModel> getAllChallenges(String username) ;
 
     ChallengeModel createChallenge(ChallengeModel challengeModel);
+
+    boolean deleteChallenge(Long id);
 }

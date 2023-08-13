@@ -12,6 +12,10 @@ class ChallengeService{
         return axios.get(CHALLENGE_API_URL + "/challenges/"+ item);
     }
 
+    deleteChallenge(id){
+        return axios.delete(CHALLENGE_API_URL+"/delete/"+ id);
+    }
+
 
 }
 export default new ChallengeService

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const ChallengeList = ({challenge}) => {
+const ChallengeList = ({ challenge, deleteChallenge }) => {
     const navigate = useNavigate();
     const [status, setStatus] = useState("Fetching status....");
 
@@ -31,7 +31,7 @@ const ChallengeList = ({challenge}) => {
 
   return (
     <tr key={challenge.id}
-                        onClick={() => navigate("/events")}
+                        
                         className="cursor-pointer">
                             
                             <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
@@ -62,7 +62,8 @@ const ChallengeList = ({challenge}) => {
                                 </div>
                             </td>
                             <td className="text-center font-semibold">
-                                <button className="bg-red-700 hover:bg-red-500 text-white hover:text-black px-4 py-2 rounded">Delete</button>
+                                <button className="bg-red-700 hover:bg-red-500 text-white hover:text-black px-4 py-2 rounded" onClick={(e)=>deleteChallenge(e, challenge.id)}>Delete</button>
+                                <button className="bg-green-700 hover:bg-green-500 text-white hover:text-black px-2 py-2 ml-2 rounded" onClick={() => navigate("/events")}>Check Events</button>
                             </td>
                         </tr>
   )

@@ -29,6 +29,13 @@ public class ChallengeServiceImpl implements ChallengeService{
     }
 
     @Override
+    public boolean deleteChallenge(Long id) {
+        ChallengeEntity challengeEntity = challengeRepository.findById(id).get();
+        challengeRepository.delete(challengeEntity);
+        return true;
+    }
+
+    @Override
     public List<ChallengeModel> getAllChallenges(String username) {
         List<ChallengeEntity> challengeEntities = challengeRepository.findAllByUsername(username);
 

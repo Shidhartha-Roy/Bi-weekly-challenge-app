@@ -67,11 +67,11 @@ const Home = () => {
                     <tr>
                         
                         <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Project Name</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Project Description</th>
+                        <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Tech Stack</th>
                         <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Start Date</th>
                         <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">End Date</th>
                         <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Status</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking wider py-3 px-6">Actions</th>
+                        <th className="text-center font-medium text-gray-500 uppercase tracking wider py-3 px-6">Actions</th>
                     </tr>
                 </thead>
                 {!loading && (
