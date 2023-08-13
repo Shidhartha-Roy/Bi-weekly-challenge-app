@@ -99,7 +99,7 @@ const CreateChallenge = () => {
         </div>
         {/* Project Description Field */}
         <div className="items-center justify-center h-14 w-full my-4">
-        <label className="block text-gray-600 text-sm font-normal">Project Description</label>
+        <label className="block text-gray-600 text-sm font-normal">Tech Stack Used</label>
             <textarea
             className="h-20 resize-none w-96 border border-gray-500 mt-2 px-2 py-2"
             name="pdesc"
