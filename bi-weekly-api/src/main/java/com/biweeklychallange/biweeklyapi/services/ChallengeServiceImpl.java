@@ -1,9 +1,12 @@
 package com.biweeklychallange.biweeklyapi.services;
 
 import com.biweeklychallange.biweeklyapi.entity.ChallengeEntity;
+import com.biweeklychallange.biweeklyapi.entity.UserEntity;
 import com.biweeklychallange.biweeklyapi.model.ChallengeModel;
 import com.biweeklychallange.biweeklyapi.repository.ChallengeRepository;
+import com.biweeklychallange.biweeklyapi.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +17,11 @@ public class ChallengeServiceImpl implements ChallengeService{
 
     private ChallengeRepository challengeRepository;
 
-    public ChallengeServiceImpl(ChallengeRepository challengeRepository) {
+    private UserRepository userRepository;
+
+    public ChallengeServiceImpl(ChallengeRepository challengeRepository, UserRepository userRepository) {
         this.challengeRepository = challengeRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -38,6 +44,12 @@ public class ChallengeServiceImpl implements ChallengeService{
     @Override
     public List<ChallengeModel> getAllChallenges(String username) {
         List<ChallengeEntity> challengeEntities = challengeRepository.findAllByUsername(username);
+
+        //Project Counter Updation
+        int projectCounter = challengeEntities.size();
+        UserEntity user = userRepository.findByUsername(username);
+        user.setProjectCount(projectCounter);
+        userRepository.save(user);
 
         List<ChallengeModel> challenges = challengeEntities.stream().map(chl -> new ChallengeModel(chl.getId(),chl.getPname(),chl.getPdesc(),chl.getStartDate(),chl.getEndDate(), chl.getUsername())).collect(Collectors.toList());
         return challenges;
