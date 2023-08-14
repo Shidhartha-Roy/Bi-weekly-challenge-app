@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-
+import Selection from 'react-select';
 
 const CreateEvent = () => {
     const navigate = useNavigate();
@@ -34,7 +34,12 @@ const CreateEvent = () => {
       }
     }, [])
     
-
+    const eventStatusList = [
+        { value:"Completed", label:"Completed"},
+        { value:"Ongoing", label:"Ongoing"},
+        { value:"Upcoming", label:"Upcoming"},
+      ]
+      
     
 
 
@@ -53,7 +58,7 @@ const CreateEvent = () => {
             name="eventname"
             value={eventDetails.eventname}
             onChange={(e) => handleChange(e)}
-            className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2"
+            className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2 rounded"
             />
         </div>
         {/* Starting Date Field */}
@@ -64,19 +69,16 @@ const CreateEvent = () => {
             name="date"
             value={eventDetails.date}
             onChange={(e) => handleChange(e)}
-            className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2"
+            className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2 rounded"
             />
         </div>
-        {/* Project Description Field */}
+        {/* Project Status Field */}
         <div className="items-center justify-center h-14 w-full my-4">
-        <label className="block text-gray-600 text-sm font-normal">Event Description</label>
-            <textarea
-            className="h-20 resize-none w-96 border border-gray-500 mt-2 px-2 py-2"
-            name="edesc"
-            value={eventDetails.edesc}
-            onChange={(e) => handleChange(e)}
-            
-            />
+        <label className="block text-gray-600 text-sm font-normal pt-2 pb-2">Event Status</label>
+           <Selection
+                className="border border-gray-500 rounded"
+                options={eventStatusList}
+                 />
         </div>
         
 

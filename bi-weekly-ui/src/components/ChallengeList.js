@@ -30,11 +30,8 @@ const ChallengeList = ({ challenge, deleteChallenge }) => {
 
 
   return (
-    <tr key={challenge.id}
-                        
-                        className="cursor-pointer">
-                            
-                            <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
+    <tr key={challenge.id}>
+                         <td className="text-left px-6 py-4 whitespace-nowrap font-semibold">
                                 <div className="text-sm text-gray-500">
                                     {challenge.pname}
                                 </div>

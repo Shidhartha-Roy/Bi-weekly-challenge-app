@@ -1,16 +1,16 @@
-package com.biweeklychallange.biweeklyapi.entity;
+package com.biweeklychallange.biweeklyapi.model;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity
 @Data
-@Table(name = "Events")
-public class EventEntity {
-    @Id
-    @GeneratedValue
+@NoArgsConstructor
+@AllArgsConstructor
+public class EventModel {
+
     private long id;
 
     private long challengeId;
