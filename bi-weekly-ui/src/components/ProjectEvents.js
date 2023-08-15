@@ -1,9 +1,12 @@
 import React,{ useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
 
 const ProjectEvents = () => {
+
+  const { id, pname } = useParams(); 
+  
 
   const navigate = useNavigate();
 
@@ -23,7 +26,7 @@ const ProjectEvents = () => {
   return (
     <div className="container mx-auto my-8">
       <div className="h-12">
-        Events of [Project Name]
+        Events of {pname}
       </div>
 
       <div className="flex shadow border-b">
@@ -79,7 +82,7 @@ const ProjectEvents = () => {
 
       <div className="h-12 pt-5 ">
             <button
-            onClick={() => navigate("/createEvents")}
+            onClick={() => navigate(`/createEvents/${id}/${pname}`)}
             className="rounded bg-green-700  text-white px-6 py-2 font-semibold hover:bg-green-500 hover:text-black"
             >
                Add New Event
@@ -89,6 +92,7 @@ const ProjectEvents = () => {
             className="rounded bg-red-700 text-white px-6 py-2 ml-2 font-semibold hover:bg-red-500 hover:text-black">
               Back
             </button>
+            
         </div>
       
     </div>

@@ -20,8 +20,8 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/create" element={<CreateChallenge />} />
       <Route path="/login" element={<LoginForm />} />
-      <Route path="/events" element={<ProjectEvents />} />
-      <Route path="/createEvents" element={<CreateEvent />} />
+      <Route path="/events/:id/:pname" element={<ProjectEvents />} />
+      <Route path="/createEvents/:chId/:pname" element={<CreateEvent />} />
       <Route path="/update" element={<UpdateEvent />} />
       <Route path="/register" element={<Register />} />
       

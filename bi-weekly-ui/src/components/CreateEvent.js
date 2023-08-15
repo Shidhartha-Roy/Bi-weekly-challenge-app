@@ -1,29 +1,54 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Selection from 'react-select';
+import EventService from '../services/EventService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateEvent = () => {
     const navigate = useNavigate();
 
+    const { chId,pname } = useParams();
+
     const currentDate = new Date().toISOString().split('T')[0];
 
     const [eventDetails, setEventDetails] = useState({
-        eventname: "",
-        date: currentDate,
-        edesc: "",
+        challengeId: chId,
+        eventName: "",
+        eventDate: currentDate,
+        eventStatus: "",
         
     })
 
     const handleChange = (e) =>{
         const value = e.target.value;
-        setEventDetails({...eventDetails, [e.target.name]: value})
+        setEventDetails({ ...eventDetails, [e.target.name]: value})
         
     }
+
+    const handleSelection = (name, value) =>{
+        setEventDetails({ ...eventDetails, [name]: value})
+    }
     
-    //!Changes are bound to happen
     const handleSubmit = () =>{
-        console.log(eventDetails.eventname,eventDetails.edesc,eventDetails.date)
+        EventService.createEvent(eventDetails)
+        .then(() => {
+            
+                toast("Event Created!", {
+                    autoClose: 1000,
+                });
+    
+                setTimeout(() => {
+                    navigate(`/events/${chId}/${pname}`)
+                }, 2000);
+                
+    
+            
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
     useEffect(() => {
@@ -55,8 +80,8 @@ const CreateEvent = () => {
             <label className="block text-gray-600 text-sm font-normal">Event Name</label>
             <input
             type="text"
-            name="eventname"
-            value={eventDetails.eventname}
+            name="eventName"
+            value={eventDetails.eventName}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2 rounded"
             />
@@ -66,8 +91,8 @@ const CreateEvent = () => {
             <label className="block text-gray-600 text-sm font-normal">Event Date</label>
             <input
             type="date"
-            name="date"
-            value={eventDetails.date}
+            name="eventDate"
+            value={eventDetails.eventDate}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2 rounded"
             />
@@ -77,12 +102,15 @@ const CreateEvent = () => {
         <label className="block text-gray-600 text-sm font-normal pt-2 pb-2">Event Status</label>
            <Selection
                 className="border border-gray-500 rounded"
+                onChange={(selectedOption) => handleSelection("eventStatus", selectedOption.value)}
                 options={eventStatusList}
+                
                  />
         </div>
         
 
         <div className="items-center justify-start h-14 w-full space-x-4 pt-14 pb-5">
+            <ToastContainer />
             <button className="rounded text-white font-semibold bg-green-700 hover:bg-green-500 hover:text-black py-2 px-6" onClick={handleSubmit}>
                 Create
             </button>
