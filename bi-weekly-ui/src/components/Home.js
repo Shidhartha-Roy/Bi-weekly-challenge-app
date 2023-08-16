@@ -44,7 +44,6 @@ const Home = () => {
             setLoading(true);
             try{
                 const response = await ChallengeService.getChallenges(username);
-                console.log(username)
                 setChallenges(response.data);
             }
             catch(error){

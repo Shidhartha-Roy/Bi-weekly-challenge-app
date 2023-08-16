@@ -40,11 +40,13 @@ const CreateChallenge = () => {
         e.preventDefault();
         ChallengeService.createChallenge(challengeDetails)
         .then(() => {
-            toast("Challenge Accepted!");
+            toast("Challenge Accepted!",{
+                autoClose: 1000,
+            });
 
             setTimeout(() => {
                 navigate("/home")
-            }, 6000);
+            }, 2000);
             
 
         })
