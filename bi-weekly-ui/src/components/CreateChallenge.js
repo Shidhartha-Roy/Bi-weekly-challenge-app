@@ -11,6 +11,7 @@ const CreateChallenge = () => {
 
     const navigate = useNavigate();
 
+    const [errorMessage, setErrorMessage] = useState("");
 
     const currentDate = new Date().toISOString().split('T')[0];
 
@@ -38,21 +39,28 @@ const CreateChallenge = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        ChallengeService.createChallenge(challengeDetails)
-        .then(() => {
-            toast("Challenge Accepted!",{
-                autoClose: 1000,
-            });
+        if(challengeDetails.pname === "" || challengeDetails.pdesc === ""){
+            setErrorMessage("Some fields are empty");
+        }
+        else{
 
-            setTimeout(() => {
-                navigate("/home")
-            }, 2000);
-            
-
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+            ChallengeService.createChallenge(challengeDetails)
+            .then(() => {
+                setErrorMessage("");
+                toast("Challenge Accepted!",{
+                    autoClose: 1000,
+                });
+    
+                setTimeout(() => {
+                    navigate("/home")
+                }, 2000);
+                
+    
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        }
     }
 
 
@@ -77,6 +85,7 @@ const CreateChallenge = () => {
         <div className="font-thin text-2xl tracking-wider">
             <h1>Create Challange</h1>
         </div>
+        <div className="mt-2 text-red-600 font-semibold uppercase">{errorMessage}</div>
         {/* Project Name Field */}
         <div className="items-center justify-center h-14 w-full my-4">
             <label className="block text-gray-600 text-sm font-normal">Project Name</label>

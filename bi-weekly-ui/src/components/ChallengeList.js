@@ -59,8 +59,8 @@ const ChallengeList = ({ challenge, deleteChallenge }) => {
                                 </div>
                             </td>
                             <td className="text-center font-semibold">
-                                <button className="bg-red-700 hover:bg-red-500 text-white hover:text-black px-4 py-2 rounded" onClick={(e)=>deleteChallenge(e, challenge.id)}>Delete</button>
-                                <button className="bg-green-700 hover:bg-green-500 text-white hover:text-black px-2 py-2 ml-2 rounded" onClick={() => navigate(`/events/${challenge.id}/${challenge.pname}`)}>Check Events</button>
+                                <button className="bg-green-700 hover:bg-green-500 text-white hover:text-black px-2 py-2 rounded" onClick={() => navigate(`/events/${challenge.id}/${challenge.pname}`)}>Check Events</button>
+                                <button className="bg-red-700 hover:bg-red-500 text-white hover:text-black px-4 py-2  ml-2 rounded" onClick={(e)=>deleteChallenge(e, challenge.id, challenge.pname)}>Delete</button>
                             </td>
                         </tr>
   )

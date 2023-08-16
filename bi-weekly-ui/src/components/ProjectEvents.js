@@ -15,11 +15,28 @@ const ProjectEvents = () => {
   const navigate = useNavigate();
 
     const [lodaing, setLodaing] = useState(true)
-    const [status, setStatus] = useState("Completed");
     const [events, setEvents] = useState(null);
 
+    const deleteEvent = (e, eid, name) =>{
+      e.preventDefault();
+      const conf = window.confirm("Are you sure to delete event "+name+" ?");
+      if(conf){
+        EventService.deleteEvent(eid)
+        .then(() => {
+          if(events){
+            setEvents((prevElement) => {
+              return prevElement.filter((event) => event.id != eid)
+            })
+    
+          }
+  
+        
+        })
+
+      }
+    }
+  //*Direct Path Access
   useEffect(() => {
-    //*Direct Path Access
     const token = Cookies.get('authToken');
     if(!token){
         navigate("/login");
@@ -42,7 +59,6 @@ const ProjectEvents = () => {
     fetchEventData();
   }, [])
   
-
  
 
   return (
@@ -92,7 +108,7 @@ const ProjectEvents = () => {
 
                         className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-500 hover:text-black">Edit</button>
                         <button
-                        // onClick={(e) => deleteEmployee(e, employee.id)}
+                        onClick={(e) => deleteEvent(e, event.id, event.eventName)}
                         className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 hover:text-black">Delete</button>
                     </td>
 

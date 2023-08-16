@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/bwc/")
@@ -36,5 +38,14 @@ public class EventController {
     public ResponseEntity<EventModel> updateEmployee(@PathVariable Long id, @RequestBody EventModel eventModel){
         eventModel = eventService.updateEmployeeById(id, eventModel);
         return ResponseEntity.ok(eventModel);
+    }
+
+    @DeleteMapping("/deleteEvent/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteEvent(@PathVariable Long id){
+        boolean deleted = false;
+        deleted = eventService.deleteById(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", deleted);
+        return  ResponseEntity.ok(response);
     }
 }

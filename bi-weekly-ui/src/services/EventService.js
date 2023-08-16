@@ -20,5 +20,9 @@ class EventService{
         return axios.put(CHALLENGE_API_URL+"/updateEvent/"+eid, eventDetails);
     }
 
+    deleteEvent(eid){
+        return axios.delete(CHALLENGE_API_URL+"/deleteEvent/"+eid);
+    }
+
 }
 export default new EventService

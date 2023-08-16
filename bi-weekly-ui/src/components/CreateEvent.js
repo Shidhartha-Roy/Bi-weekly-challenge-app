@@ -21,6 +21,8 @@ const CreateEvent = () => {
         
     })
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleChange = (e) =>{
         const value = e.target.value;
         setEventDetails({ ...eventDetails, [e.target.name]: value})
@@ -28,27 +30,38 @@ const CreateEvent = () => {
     }
 
     const handleSelection = (name, value) =>{
-        setEventDetails({ ...eventDetails, [name]: value})
+        
+            setEventDetails({ ...eventDetails, [name]: value})
+            
+        
     }
     
-    const handleSubmit = () =>{
-        EventService.createEvent(eventDetails)
-        .then(() => {
-            
-                toast("Event Created!", {
-                    autoClose: 1000,
-                });
-    
-                setTimeout(() => {
-                    navigate(`/events/${chId}/${pname}`)
-                }, 2000);
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        if(eventDetails.eventName === "" || eventDetails.eventStatus === ""){
+            setErrorMessage("*Fill all Fields");
+        }
+        else{
+
+            EventService.createEvent(eventDetails)
+            .then(() => {
+                    setErrorMessage("");
+                    toast("Event Created!", {
+                        autoClose: 1000,
+                    });
+        
+                    setTimeout(() => {
+                        navigate(`/events/${chId}/${pname}`)
+                    }, 2000);
+                    
+        
                 
-    
-            
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            })
+            .catch((error) => {
+                console.log(error)
+                setErrorMessage("Some error has occured")
+            })
+        }
     }
 
     useEffect(() => {
@@ -70,12 +83,15 @@ const CreateEvent = () => {
 
 
   return (
+    
     <div className="flex max-w-2xl mx-auto mt-20 shadow border border-gray-900 pb-2">
         <div className="px-8 py-8">
         <div className="font-thin text-2xl tracking-wider">
             <h1>Create Event</h1>
         </div>
+        <div className="mt-2 text-red-600 font-semibold uppercase">{errorMessage}</div>
         {/* Event Name Field */}
+        
         <div className="items-center justify-center h-14 w-full my-4">
             <label className="block text-gray-600 text-sm font-normal">Event Name</label>
             <input
@@ -84,6 +100,7 @@ const CreateEvent = () => {
             value={eventDetails.eventName}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2 rounded"
+            
             />
         </div>
         {/* Starting Date Field */}
@@ -95,6 +112,7 @@ const CreateEvent = () => {
             value={eventDetails.eventDate}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2 rounded"
+            
             />
         </div>
         {/* Project Status Field */}
@@ -111,13 +129,14 @@ const CreateEvent = () => {
 
         <div className="items-center justify-start h-14 w-full space-x-4 pt-14 pb-5">
             <ToastContainer />
-            <button className="rounded text-white font-semibold bg-green-700 hover:bg-green-500 hover:text-black py-2 px-6" onClick={handleSubmit}>
+            <button className="rounded text-white font-semibold bg-green-700 hover:bg-green-500 hover:text-black py-2 px-6" onClick={(e) => handleSubmit(e)}>
                 Create
             </button>
-            <button className="rounded text-white font-semibold bg-red-700 hover:bg-red-500 hover:text-black py-2 px-6" onClick={() => navigate("/events")}>
+            <button className="rounded text-white font-semibold bg-red-700 hover:bg-red-500 hover:text-black py-2 px-6" onClick={() => navigate(`/events/${chId}/${pname}`)}>
                 Back
             </button>
         </div>
+       
         </div>
     </div>
   )

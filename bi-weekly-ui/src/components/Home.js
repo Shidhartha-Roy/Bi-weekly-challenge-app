@@ -14,16 +14,20 @@ const Home = () => {
     const username = Cookies.get('uname');
 
     //Delete challenge Function
-    const deleteChallenge = (e, id) =>{
+    const deleteChallenge = (e, id, name) =>{
         e.preventDefault();
-        ChallengeService.deleteChallenge(id)
-        .then((response) =>{
-            if(challenges){
-                setChallenges((prevElement) => {
-                    return prevElement.filter((challenge) => challenge.id != id)
-                })
-            }
-        })
+        const conf = window.confirm("Are you sure to delete "+name+" ?");
+        if(conf){
+            ChallengeService.deleteChallenge(id)
+            .then((response) =>{
+                if(challenges){
+                    setChallenges((prevElement) => {
+                        return prevElement.filter((challenge) => challenge.id != id)
+                    })
+                }
+            })
+
+        }
     }
 
 

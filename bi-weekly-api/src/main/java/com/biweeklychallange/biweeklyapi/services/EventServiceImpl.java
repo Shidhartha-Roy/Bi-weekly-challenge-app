@@ -53,4 +53,10 @@ public class EventServiceImpl implements EventService{
         eventRepository.save(eventEntity);
         return eventModel;
     }
+
+    @Override
+    public boolean deleteById(Long id) {
+        eventRepository.deleteById(id);
+        return true;
+    }
 }

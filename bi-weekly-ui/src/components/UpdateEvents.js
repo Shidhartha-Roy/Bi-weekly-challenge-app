@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Selection from 'react-select';
 import EventService from '../services/EventService';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const UpdateEvent = () => {
@@ -11,6 +12,8 @@ const UpdateEvent = () => {
     const pname = Cookies.get('project');
 
     const { eid } = useParams();
+
+    const [change, setChange] = useState(false)
 
     const [eventDetails, setEventDetails] = useState({
         id: eid,
@@ -21,26 +24,59 @@ const UpdateEvent = () => {
         
     })
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleSelection = (name, value) =>{
         setEventDetails({ ...eventDetails, [name]: value})
+        setChange(true)
+
     }
 
     const handleChange = (e) =>{
         const value = e.target.value;
         setEventDetails({...eventDetails, [e.target.name]: value})
+        setChange(true)
         
     }
     
-    //!Changes are bound to happen
     const handleSubmit = (e) =>{
         e.preventDefault();
-        EventService.updateEvent(eventDetails, eid)
-        .then((response) => {
-            navigate(`/events/${chid}/${pname}`)
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        if(eventDetails.eventName === "" || eventDetails.eventStatus === ""){
+            setErrorMessage("*Empty Fields");
+        }
+        else{
+            if(!change){
+                toast("No changes Made", {
+                    autoClose: 1000
+                });
+
+                setTimeout(()=>{
+                    
+                    navigate(`/events/${chid}/${pname}`)
+
+                }, 2000)
+            }
+            else{
+                EventService.updateEvent(eventDetails, eid)
+                .then(() => {
+                    setErrorMessage("");
+                    toast("Event Updated", {
+                        autoClose: 1000,
+                    })
+                    setTimeout(() => {
+                        
+                        navigate(`/events/${chid}/${pname}`)
+                        
+                    }, 2000);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setErrorMessage("Some error has occured")
+                })
+
+            }
+
+        }
         
     }
 
@@ -82,12 +118,13 @@ const UpdateEvent = () => {
         <div className="font-thin text-2xl tracking-wider">
             <h1>Update Event</h1>
         </div>
+        <div className="mt-2 text-red-600 font-semibold uppercase">{errorMessage}</div>
         {/* Event Name Field */}
         <div className="items-center justify-center h-14 w-full my-4">
             <label className="block text-gray-600 text-sm font-normal">Event Name</label>
             <input
             type="text"
-            name="eventname"
+            name="eventName"
             value={eventDetails.eventName}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2"
@@ -98,7 +135,7 @@ const UpdateEvent = () => {
             <label className="block text-gray-600 text-sm font-normal">Event Date</label>
             <input
             type="date"
-            name="date"
+            name="eventDate"
             value={eventDetails.eventDate}
             onChange={(e) => handleChange(e)}
             className="h-10 w-96 border border-gray-500 mt-2 px-2 py-2"
@@ -116,6 +153,7 @@ const UpdateEvent = () => {
         
 
         <div className="items-center justify-start h-14 w-full space-x-4 pt-14 pb-5">
+            <ToastContainer />
             <button className="rounded text-white font-semibold bg-green-700 hover:bg-green-500 hover:text-black py-2 px-6" onClick={(e)=> handleSubmit(e)}>
                 Update
             </button>

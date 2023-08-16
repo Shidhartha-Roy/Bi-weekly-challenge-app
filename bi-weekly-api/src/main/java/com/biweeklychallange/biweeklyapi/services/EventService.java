@@ -12,4 +12,6 @@ public interface EventService {
     EventModel getEventById(Long id);
 
     EventModel updateEmployeeById(Long id, EventModel eventModel);
+
+    boolean deleteById(Long id);
 }
