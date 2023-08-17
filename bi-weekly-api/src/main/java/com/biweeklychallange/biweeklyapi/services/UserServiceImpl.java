@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -71,4 +73,15 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
         return user;
     }
+
+    @Override
+    public List<UserModel> getRanking() {
+        List<UserEntity> userEntities = userRepository.findRanking();
+
+        List<UserModel> user = userEntities.stream().map(rank -> new UserModel(rank.getFirstname(), rank.getLastname(), rank.getUsername(), rank.getProjectCount())).collect(Collectors.toList());
+
+        return user;
+    }
+
+
 }
