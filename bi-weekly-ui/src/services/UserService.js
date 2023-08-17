@@ -11,5 +11,9 @@ class UserService {
     loginUser(user){
         return axios.post(CHALLENGE_API_URL+"/login", user);
     }
+
+    getRanking(){
+        return axios.get(CHALLENGE_API_URL+"/ranking");
+    }
 }
 export default new UserService

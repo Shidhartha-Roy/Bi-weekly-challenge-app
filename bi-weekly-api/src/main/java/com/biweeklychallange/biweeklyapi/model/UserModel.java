@@ -19,7 +19,7 @@ public class UserModel {
 
     private int projectCount;
 
-
+    //Specialized Constructor for Ranking ---> Don't want to return password
     public UserModel(String firstname, String lastname, String username, int projectCount) {
         this.firstname = firstname;
         this.lastname = lastname;

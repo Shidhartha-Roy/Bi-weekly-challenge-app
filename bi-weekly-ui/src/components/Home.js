@@ -24,6 +24,7 @@ const Home = () => {
                     setChallenges((prevElement) => {
                         return prevElement.filter((challenge) => challenge.id != id)
                     })
+                    window.location.reload();
                 }
             })
 

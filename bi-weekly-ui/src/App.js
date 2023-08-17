@@ -9,6 +9,7 @@ import CreateEvent from './components/CreateEvent';
 import UpdateEvent from './components/UpdateEvents';
 import Landing from './components/Landing';
 import Register from './components/Register';
+import RankingPage from './components/RankingPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/createEvents/:chId/:pname" element={<CreateEvent />} />
       <Route path="/update/:eid" element={<UpdateEvent />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/rank" element={<RankingPage />} />
       
     </Routes>
     

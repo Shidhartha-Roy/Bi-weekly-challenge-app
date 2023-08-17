@@ -27,6 +27,7 @@ const Nav = () => {
     }
     
   }
+
   
   return (
   <nav className="sticky top-0">
@@ -34,10 +35,16 @@ const Nav = () => {
       <div className="h-16 px-8 flex items-center">
           <p 
           onClick={() => navigate("/home")}
-          className="text-white font-bold cursor-pointer">The Bi Weekly Challenge</p>
+          className="text-green-400 font-bold cursor-pointer">The Bi Weekly Challenge</p>
           <p
-          className="font-bold text-white cursor-pointer"
-          style={{marginLeft: "70rem"}}
+          className="font-bold text-green-400 cursor-pointer mr-2 uppercase"
+          style={{marginLeft: "63rem"}}
+          onClick={() => navigate("/rank")}>
+           Check Ranking
+          </p>
+          <p
+          className="font-bold text-red-400 cursor-pointer ml-2"
+          
           onClick={handleLogout}>
            {logoutMessage}
           </p>
