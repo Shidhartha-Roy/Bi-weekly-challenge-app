@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CHALLENGE_API_URL = "http://localhost:8080";
+const CHALLENGE_API_URL = "https://biweeklychallengeapi.onrender.com";
 
 class UserService {
 
